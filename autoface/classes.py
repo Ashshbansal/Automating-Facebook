@@ -24,6 +24,7 @@ import urllib.request
 
 with open("config.json","r") as config:
     config = json.load(config)
+
     
 dir = config["directory_of_videos_to_upload_as_posts_on_timeline"]
 interval = config["interval_in_secs"]
@@ -46,16 +47,17 @@ with open("textfile_used_to_find_groups_for_example_from_wikipedia_of_the_city.t
 
 text = textwiki.split(' ')
 
+
+#-------------------------------------------------------------
 with open("selectedPosts.json","r") as selectedPosts:
     selectedPosts = json.load(selectedPosts)
 with open("selectedComments.json","r") as selectedComments:
     selectedComments = json.load(selectedComments)
 with open("selectedPages.json","r") as selectedPages:
     selectedPages = json.load(selectedPages)
-        
 with open("selectedPostsPics.json","r") as selectedPostsPics:
     selectedPostsPics = json.load(selectedPostsPics)
-
+#------------------------------------------------------------------
 #--------------------------------------------------------
 #define the classes and packages
 class Trigger:
@@ -511,7 +513,7 @@ def genPostPics(graph,picsdir):
 #---------------------------------------------------------------
 #begin the firefox and now listening
 print("Opening firefox please wait ...")
-t = Trigger(graph, profile)        
+t = Trigger(graph, profile,  picsdir)        
 
 
 
@@ -530,6 +532,7 @@ while x > 0:
         elif (m == 3):
             t.reactHome()
         elif (m == 4):
+            genPostPics(graph,picsdir)
             t.postPic(selectedPostsPics)
         elif (m == 5):
             t.postVideo(dir)
